@@ -125,11 +125,17 @@ var nombreColores = [
 // Es decir, el que se elige con la rueda de color.
 var colorPersonalizado = document.getElementById("color-personalizado");
 var paleta = document.getElementById("paleta");
-var pixeles = document.getElementById("grilla-pixeles");
+var grillaPixeles = document.getElementById("grilla-pixeles");
 var color = "";
 var pixel = document.querySelectorAll(".pixel");
 var cursor = document.getElementById("indicador-de-color");
 var colores = document.querySelectorAll(".color-paleta");
+var pixeles = [];
+var botonBatman = document.getElementById("batman");
+var botonWonder = document.getElementById("wonder");
+var botonFlash = document.getElementById("flash");
+var botonInvisible = document.getElementById("invisible");
+var guardar = document.getElementById("guardar");
 
 for (var i = 0; i < nombreColores.length; i++) {
   var divi = document.createElement("div");
@@ -141,8 +147,9 @@ for (var i = 0; i < nombreColores.length; i++) {
 
 for (var i = 0; i <= 1750; i++) {
   var pixel = document.createElement("div");
-  pixeles.appendChild(pixel);
+  grillaPixeles.appendChild(pixel);
   pixel.classList.add("pixel");
+  pixeles.push(pixel);
 }
 
 function mostrarColor(e) {
@@ -155,25 +162,59 @@ function cambiarColor(e) {
 }
 
 paleta.addEventListener("click", mostrarColor);
-pixeles.addEventListener("click", cambiarColor);
+grillaPixeles.addEventListener("click", cambiarColor);
 
-pixeles.addEventListener("mouseup", function() {
+grillaPixeles.addEventListener("mouseup", function() {
   chequearSiTengoQuePintar(false);
 });
-pixeles.addEventListener("mousedown", function() {
-  console.log("mouse down");
+grillaPixeles.addEventListener("mousedown", function() {
   chequearSiTengoQuePintar(true);
 });
 
 function chequearSiTengoQuePintar(pintar) {
   if (pintar) {
-    pixeles.addEventListener("mousemove", cambiarColor);
+    grillaPixeles.addEventListener("mousemove", cambiarColor);
   } else {
-    pixeles.removeEventListener("mousemove", cambiarColor);
+    grillaPixeles.removeEventListener("mousemove", cambiarColor);
   }
 }
 
-colorPersonalizado.addEventListener("change", function() {
+
+
+var borrar = document.getElementById("borrar");
+borrar.addEventListener("click", function(){
+  
+    $( ".pixel" ).each(function() {
+      $("#grilla-pixeles").css("background-color", "white");
+      
+      $( this ).animate({opacity:"0.5"});
+      
+      $(this).css("background-color", "white");
+      $(this).animate({opacity:"1"},200)
+    });
+     
+  
+  }
+
+  );
+
+  botonBatman.addEventListener('click', function(){
+    cargarSuperheroe(batman);
+  } );
+  botonWonder.addEventListener('click', function(){
+    cargarSuperheroe(wonder);
+  } );
+  botonFlash.addEventListener('click', function(){
+    cargarSuperheroe(flash);
+  } );
+  botonInvisible.addEventListener("click", function(){
+    cargarSuperheroe(invisible);
+  })
+
+guardar.addEventListener("click", guardarPixelArt);
+
+
+  colorPersonalizado.addEventListener("change", function() {
   // Se guarda el color de la rueda en colorActual
   colorActual = colorPersonalizado.value;
   cursor.style.backgroundColor = colorActual;
@@ -181,3 +222,4 @@ colorPersonalizado.addEventListener("change", function() {
 
   // Completar para que cambie el indicador-de-color al colorActual
 });
+
