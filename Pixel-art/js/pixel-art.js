@@ -181,22 +181,11 @@ function chequearSiTengoQuePintar(pintar) {
 
 
 
-var borrar = document.getElementById("borrar");
-borrar.addEventListener("click", function(){
-  
-    $( ".pixel" ).each(function() {
-      $("#grilla-pixeles").css("background-color", "white");
-      
-      $( this ).animate({opacity:"0.5"});
-      
-      $(this).css("background-color", "white");
-      $(this).animate({opacity:"1"},200)
-    });
-     
-  
-  }
+$('#borrar').click(function(){
+  $('#grilla-pixeles div').animate({'background-color':'white'}, 1000);
+  console.log("entrooo")
+});
 
-  );
 
   botonBatman.addEventListener('click', function(){
     cargarSuperheroe(batman);
